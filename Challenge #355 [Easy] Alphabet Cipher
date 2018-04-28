@@ -1,0 +1,48 @@
+secretWord = 'b'
+originalMessage = 'ymmyzwlajwolamkcam'
+
+
+def get_secretWord(secretWord, message):
+    while len(secretWord) < len(message):
+        size = len(message) - len(secretWord)
+        if size < len(secretWord):
+            secretWord = secretWord + secretWord[0:size]
+        else:
+            secretWord = secretWord + secretWord
+    return secretWord
+
+
+def alp_cipher(secretWord, message):
+    newMessage = ''
+    secretWord = get_secretWord(secretWord, message)
+
+    cont = 0
+    for letter in message:
+        word = ord(secretWord[cont]) - 97
+        aux = ord(letter) - 97
+        newMessage = newMessage + chr(((aux + word) % 26) + 97)
+        cont += 1
+
+    return newMessage
+
+
+def alp_decipher(secretWord, message):
+    newMessage = ''
+    secretWord = get_secretWord(secretWord, message)
+
+    cont = 0
+    for letter in message:
+        word = ord(secretWord[cont]) - 97
+        aux = ord(letter) - 97
+        newMessage = newMessage + chr(((aux - word) % 26) + 97)
+        cont += 1
+    return newMessage
+
+
+cipherMessage = alp_cipher(secretWord, originalMessage)
+
+decipherMessage = alp_decipher(secretWord, cipherMessage)
+
+print('Cipher Message: ' + cipherMessage)
+print('Decipher Message: ' + decipherMessage)
+print('Original Message: ' + originalMessage)
